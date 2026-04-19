@@ -13,8 +13,13 @@ def all_comp(a,b, c):
     pass
 
 # Task 3 Compute the Partition Function
-def cal_partition():
-    pass
+def cal_partition(unnorm_prob):
+    z = 0
+    for prob in unnorm_prob.values():
+        z+= prob
+    return z    
+    
+   
 
 # Task 4 Normalize the Distribution
 def normalize():

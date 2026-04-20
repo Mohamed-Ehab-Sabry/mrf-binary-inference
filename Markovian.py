@@ -38,8 +38,10 @@ def normalize(joint_prob):
     return joint_prob_n
 
 # Task 5 Probability Query Function
-def query(a,b,c):
-    pass
+def query(a, b, c):
+    joint_prob = all_comp()
+    normalized_prob = normalize(joint_prob)
+    return normalized_prob.get((a, b, c), 0)
 
 # Task 6 compute marginal probabilities:
 def marginal(variable, value):
@@ -60,6 +62,9 @@ def main():
 
     print("Unnormalized: ", joint_prob)
     print("Normalized: ", normalized_prob)
+    
+    print("probability of config(1,1,1): " , query(1,1,1))
+    print("probability of config(0,1,0): " , query(0,1,0)) 
 
 if __name__ == '__main__':
     main()

@@ -10,13 +10,13 @@ def phi3(a,c):
 
 # Task 2 Construct the Joint Distribution
 def all_comp():
-    joint_prop = {}
+    joint_prob = {}
     for i in range(2):
         for j in range(2):
             for k in range(2):
-                joint_prop[i,j,k] = phi1(i, j) * phi2(j, k) * phi3(i, k)
+                joint_prob[i,j,k] = phi1(i, j) * phi2(j, k) * phi3(i, k)
 
-    return joint_prop
+    return joint_prob
 
 # Task 3 Compute the Partition Function
 def cal_partition(unnorm_prob):
@@ -28,8 +28,14 @@ def cal_partition(unnorm_prob):
    
 
 # Task 4 Normalize the Distribution
-def normalize():
-    pass
+def normalize(joint_prob):
+    joint_prob_n = joint_prob.copy()
+    Z = cal_partition(joint_prob_n)
+
+    for key in joint_prob_n:
+        joint_prob_n[key] /= Z
+
+    return joint_prob_n
 
 # Task 5 Probability Query Function
 def query(a,b,c):
@@ -49,8 +55,11 @@ def marginal(variable, value):
     return mar_pro
 
 def main():
-    joint_prop = all_comp()
-    print(joint_prop)
+    joint_prob = all_comp()
+    normalized_prob = normalize(joint_prob)
+
+    print("Unnormalized: ", joint_prob)
+    print("Normalized: ", normalized_prob)
 
 if __name__ == '__main__':
     main()

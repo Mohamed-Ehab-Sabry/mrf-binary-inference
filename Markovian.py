@@ -9,8 +9,14 @@ def phi3(a,c):
     return 3 if a == c else 1
 
 # Task 2 Construct the Joint Distribution
-def all_comp(a,b, c):
-    pass
+def all_comp():
+    joint_prop = {}
+    for i in range(2):
+        for j in range(2):
+            for k in range(2):
+                joint_prop[i,j,k] = phi1(i, j) * phi2(j, k) * phi3(i, k)
+
+    return joint_prop
 
 # Task 3 Compute the Partition Function
 def cal_partition(unnorm_prob):
@@ -41,3 +47,10 @@ def marginal(variable, value):
             else:
                 mar_pro += query(i, j, value)
     return mar_pro
+
+def main():
+    joint_prop = all_comp()
+    print(joint_prop)
+
+if __name__ == '__main__':
+    main()

@@ -1,31 +1,34 @@
 # Task 1 Clique Factors
-def phi1(a,b):
+def phi1(a, b):
     return 4 if a == b else 2
 
-def phi2(b,c):
+
+def phi2(b, c):
     return 5 if b == c else 1
 
-def phi3(a,c):
+
+def phi3(a, c):
     return 3 if a == c else 1
 
+
 # Task 2 Construct the Joint Distribution
-def all_comp():
+def all_comp(a=None, b=None, c=None):
     joint_prob = {}
     for i in range(2):
         for j in range(2):
             for k in range(2):
-                joint_prob[i,j,k] = phi1(i, j) * phi2(j, k) * phi3(i, k)
+                joint_prob[i, j, k] = phi1(i, j) * phi2(j, k) * phi3(i, k)
 
     return joint_prob
+
 
 # Task 3 Compute the Partition Function
 def cal_partition(unnorm_prob):
     z = 0
     for prob in unnorm_prob.values():
-        z+= prob
-    return z    
-    
-   
+        z += prob
+    return z
+
 
 # Task 4 Normalize the Distribution
 def normalize(joint_prob):
@@ -37,11 +40,13 @@ def normalize(joint_prob):
 
     return joint_prob_n
 
+
 # Task 5 Probability Query Function
 def query(a, b, c):
     joint_prob = all_comp()
     normalized_prob = normalize(joint_prob)
     return normalized_prob.get((a, b, c), 0)
+
 
 # Task 6 compute marginal probabilities:
 def marginal(variable, value):
@@ -56,15 +61,18 @@ def marginal(variable, value):
                 mar_pro += query(i, j, value)
     return mar_pro
 
+
 def main():
     joint_prob = all_comp()
     normalized_prob = normalize(joint_prob)
 
-    print("Unnormalized: ", joint_prob)
-    print("Normalized: ", normalized_prob)
-    
-    print("probability of config(1,1,1): " , query(1,1,1))
-    print("probability of config(0,1,0): " , query(0,1,0)) 
+    for (a, b, c), unnorm in joint_prob.items():
+        norm = normalized_prob[(a, b, c)]
+        print(f"A{a} B{b} C{c}\t{unnorm}\tP(A{a},B{b},C{c}) = {norm}")
+
+    print("\nprobability of config(1,1,1): ", query(1, 1, 1))
+    print("probability of config(0,1,0): ", query(0, 1, 0))
+
 
 if __name__ == '__main__':
     main()
